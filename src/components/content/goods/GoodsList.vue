@@ -18,7 +18,7 @@ import GoodsItem from './GoodsItem.vue'
                     return []
                 }
             }
-        }
+        },
 }
 </script>
 

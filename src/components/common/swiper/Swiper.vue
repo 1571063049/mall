@@ -47,7 +47,7 @@
         this.handleDom();
         // 2.开启定时器
         this.startTimer();
-      }, 1000)
+      }, 300)
     },
     methods: {
 		  /**

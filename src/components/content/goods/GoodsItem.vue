@@ -1,8 +1,6 @@
 <template>
-  <div id="goodsitem">
-    <a :href="goodsItem.link">
-      <img :src="goodsItem.show.img" alt="">
-    </a>
+  <div id="goodsitem" @click="itemClick(goodsItem)">
+    <img :src="showImage" alt="" @load="imgLoad">
     <div class="goods_content">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -14,19 +12,47 @@
 
 <script>
 export default {
-   name:"GoodsItem",
-      data(){
-          return{
-          }
-        },
-      props:{
-        goodsItem:{
-          type:Object,
-          default(){
-            return {}
-          }
-        }
+  name:"GoodsItem",
+  data(){
+      return{
       }
+    },
+  props:{
+    goodsItem:{
+      type:Object,
+      default(){
+        return {}
+      }
+    }
+  },
+  computed:{
+    showImage(){
+        return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
+  methods:{
+    imgLoad(){
+      // 监听图片加载
+
+       this.$bus.$emit('ItemimgLoad');
+
+      //如果为home页面，就用图片加载，而detail页面就不用，反之亦然
+      // if(this.$route.path.indexOf('/home')){
+      //    this.$bus.$emit('ItemimgLoad');
+      // }else if(this.$route.path.indexOf('/detail')){
+      //   this.$bus.$emit('ItemimgLoad');
+      // }
+    },
+    itemClick(item){
+      this.$router.push('/detail/'+ item.iid);
+      // this.$router.push({
+      //   path:'/detail',
+      //   query:{
+
+      //   }
+      // });
+    }
+  },
 }
 </script>
 
